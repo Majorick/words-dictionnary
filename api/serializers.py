@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Langue, Mot, Proposition
+from rest_framework.permissions import BasePermission
 
 class LangueSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,3 +18,8 @@ class PropositionSerializer(serializers.ModelSerializer):
         model = Proposition
         fields = "__all__"
         read_only_fields = ["proposeur", "valide"]
+
+
+from rest_framework.permissions import BasePermission
+
+

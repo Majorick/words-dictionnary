@@ -2,6 +2,10 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from .models import Langue, Mot, Proposition
 from .serializers import LangueSerializer, MotSerializer, PropositionSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser
+from .permissions import IsValidatorOrAdmin
+
 
 class LangueViewSet(viewsets.ModelViewSet):
     queryset = Langue.objects.all()
@@ -25,6 +29,15 @@ class PropositionViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(proposeur=self.request.user, valide=False)
 
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
 
+class MotAdminViewSet(viewsets.ModelViewSet):
+    queryset = Mot.objects.all()  # Inclut tous les mots, validés ou non
+    serializer_class = MotSerializer
+    permission_classes = [IsAdminUser]  # seuls les admin/validateurs y ont accès
+
+   
+
+class MotAdminViewSet(viewsets.ModelViewSet):
+    queryset = Mot.objects.all()
+    serializer_class = MotSerializer
+    permission_classes = [IsValidatorOrAdmin]

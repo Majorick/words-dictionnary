@@ -15,18 +15,16 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f"{self.username} ({self.role})"
 
-
-
 class Langue(models.Model):
     nom = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.nom
 
-
+ 
 
 class Mot(models.Model):
-    texte = models.CharField(max_length=200)
+    texte = models.CharField(max_length=2000)
     langue = models.ForeignKey("Langue", on_delete=models.CASCADE, related_name="mots")
     definition = models.TextField()
     auteur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -47,3 +45,5 @@ class Proposition(models.Model):
 
     def __str__(self):
         return f"Proposition pour {self.mot.texte}"
+
+        

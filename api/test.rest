@@ -1,0 +1,21 @@
+POST http://127.0.0.1:8000/api/token/
+Content-Type: application/json
+
+
+  {
+  "username": "Majorick",
+  "password": "789456123"
+}
+
+###
+
+
+POST http://127.0.0.1:8000/api/mots/
+Content-Type: application/json
+Authorization: Bearer <access_token>
+
+{
+  "texte": "bonjour",
+  "definition": "salutation en français",
+  "langue": 2
+}
